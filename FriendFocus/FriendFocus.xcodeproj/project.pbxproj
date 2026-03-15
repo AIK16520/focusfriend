@@ -1,0 +1,772 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B05C85E02F66CFD700A53E04 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B05C85DF2F66CFD700A53E04 /* FirebaseAuth */; };
+		B05C85E22F66CFDE00A53E04 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B05C85E12F66CFDE00A53E04 /* FirebaseFirestore */; };
+		FFAA000D2F66827600A53E04 /* FocusMonitor.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FFAA00012F66827600A53E04 /* FocusMonitor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B05C854B2F66827600A53E04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B05C85322F66827400A53E04 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B05C85392F66827400A53E04;
+			remoteInfo = FriendFocus;
+		};
+		B05C85552F66827600A53E04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B05C85322F66827400A53E04 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B05C85392F66827400A53E04;
+			remoteInfo = FriendFocus;
+		};
+		FFAA000A2F66827600A53E04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B05C85322F66827400A53E04 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FFAA00062F66827600A53E04;
+			remoteInfo = FocusMonitor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FFAA000C2F66827600A53E04 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B05C853A2F66827400A53E04 /* FriendFocus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendFocus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B05C854A2F66827600A53E04 /* FriendFocusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FriendFocusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B05C85542F66827600A53E04 /* FriendFocusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FriendFocusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFAA00012F66827600A53E04 /* FocusMonitor.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FocusMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		FFAA000E2F66827600A53E04 /* Exceptions for "FocusMonitor" folder in "FocusMonitor" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = FFAA00062F66827600A53E04 /* FocusMonitor */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		B05C853C2F66827400A53E04 /* FriendFocus */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FriendFocus;
+			sourceTree = "<group>";
+		};
+		B05C854D2F66827600A53E04 /* FriendFocusTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FriendFocusTests;
+			sourceTree = "<group>";
+		};
+		B05C85572F66827600A53E04 /* FriendFocusUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FriendFocusUITests;
+			sourceTree = "<group>";
+		};
+		FFAA00022F66827600A53E04 /* FocusMonitor */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				FFAA000E2F66827600A53E04 /* Exceptions for "FocusMonitor" folder in "FocusMonitor" target */,
+			);
+			path = FocusMonitor;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B05C85372F66827400A53E04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B05C85E02F66CFD700A53E04 /* FirebaseAuth in Frameworks */,
+				B05C85E22F66CFDE00A53E04 /* FirebaseFirestore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B05C85472F66827600A53E04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B05C85512F66827600A53E04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFAA00042F66827600A53E04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B05C85312F66827400A53E04 = {
+			isa = PBXGroup;
+			children = (
+				B05C853C2F66827400A53E04 /* FriendFocus */,
+				FFAA00022F66827600A53E04 /* FocusMonitor */,
+				B05C854D2F66827600A53E04 /* FriendFocusTests */,
+				B05C85572F66827600A53E04 /* FriendFocusUITests */,
+				B05C85DE2F66CFD700A53E04 /* Frameworks */,
+				B05C853B2F66827400A53E04 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B05C853B2F66827400A53E04 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B05C853A2F66827400A53E04 /* FriendFocus.app */,
+				FFAA00012F66827600A53E04 /* FocusMonitor.appex */,
+				B05C854A2F66827600A53E04 /* FriendFocusTests.xctest */,
+				B05C85542F66827600A53E04 /* FriendFocusUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B05C85DE2F66CFD700A53E04 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FFAA000F2F66827600A53E04 /* Strip extension from Simulator */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Strip extension from Simulator";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# DeviceActivity extensions cannot be installed on the iOS Simulator.\n# Remove the extension from the app bundle so Simulator builds install cleanly.\nif [ \"$PLATFORM_NAME\" == \"iphonesimulator\" ]; then\n    rm -rf \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/PlugIns/FocusMonitor.appex\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		B05C85392F66827400A53E04 /* FriendFocus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B05C855E2F66827600A53E04 /* Build configuration list for PBXNativeTarget "FriendFocus" */;
+			buildPhases = (
+				B05C85362F66827400A53E04 /* Sources */,
+				B05C85372F66827400A53E04 /* Frameworks */,
+				B05C85382F66827400A53E04 /* Resources */,
+				FFAA000C2F66827600A53E04 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				B05C853C2F66827400A53E04 /* FriendFocus */,
+			);
+			name = FriendFocus;
+			packageProductDependencies = (
+				B05C85DF2F66CFD700A53E04 /* FirebaseAuth */,
+				B05C85E12F66CFDE00A53E04 /* FirebaseFirestore */,
+			);
+			productName = FriendFocus;
+			productReference = B05C853A2F66827400A53E04 /* FriendFocus.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B05C85492F66827600A53E04 /* FriendFocusTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B05C85612F66827600A53E04 /* Build configuration list for PBXNativeTarget "FriendFocusTests" */;
+			buildPhases = (
+				B05C85462F66827600A53E04 /* Sources */,
+				B05C85472F66827600A53E04 /* Frameworks */,
+				B05C85482F66827600A53E04 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B05C854C2F66827600A53E04 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				B05C854D2F66827600A53E04 /* FriendFocusTests */,
+			);
+			name = FriendFocusTests;
+			packageProductDependencies = (
+			);
+			productName = FriendFocusTests;
+			productReference = B05C854A2F66827600A53E04 /* FriendFocusTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B05C85532F66827600A53E04 /* FriendFocusUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B05C85642F66827600A53E04 /* Build configuration list for PBXNativeTarget "FriendFocusUITests" */;
+			buildPhases = (
+				B05C85502F66827600A53E04 /* Sources */,
+				B05C85512F66827600A53E04 /* Frameworks */,
+				B05C85522F66827600A53E04 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B05C85562F66827600A53E04 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				B05C85572F66827600A53E04 /* FriendFocusUITests */,
+			);
+			name = FriendFocusUITests;
+			packageProductDependencies = (
+			);
+			productName = FriendFocusUITests;
+			productReference = B05C85542F66827600A53E04 /* FriendFocusUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		FFAA00062F66827600A53E04 /* FocusMonitor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FFAA00092F66827600A53E04 /* Build configuration list for PBXNativeTarget "FocusMonitor" */;
+			buildPhases = (
+				FFAA00032F66827600A53E04 /* Sources */,
+				FFAA00042F66827600A53E04 /* Frameworks */,
+				FFAA00052F66827600A53E04 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				FFAA00022F66827600A53E04 /* FocusMonitor */,
+			);
+			name = FocusMonitor;
+			packageProductDependencies = (
+			);
+			productName = FocusMonitor;
+			productReference = FFAA00012F66827600A53E04 /* FocusMonitor.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B05C85322F66827400A53E04 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					B05C85392F66827400A53E04 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					B05C85492F66827600A53E04 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = B05C85392F66827400A53E04;
+					};
+					B05C85532F66827600A53E04 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = B05C85392F66827400A53E04;
+					};
+					FFAA00062F66827600A53E04 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+				};
+			};
+			buildConfigurationList = B05C85352F66827400A53E04 /* Build configuration list for PBXProject "FriendFocus" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B05C85312F66827400A53E04;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B05C85DD2F66CF9200A53E04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = B05C853B2F66827400A53E04 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B05C85392F66827400A53E04 /* FriendFocus */,
+				FFAA00062F66827600A53E04 /* FocusMonitor */,
+				B05C85492F66827600A53E04 /* FriendFocusTests */,
+				B05C85532F66827600A53E04 /* FriendFocusUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B05C85382F66827400A53E04 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B05C85482F66827600A53E04 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B05C85522F66827600A53E04 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFAA00052F66827600A53E04 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B05C85362F66827400A53E04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B05C85462F66827600A53E04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B05C85502F66827600A53E04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFAA00032F66827600A53E04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B05C854C2F66827600A53E04 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B05C85392F66827400A53E04 /* FriendFocus */;
+			targetProxy = B05C854B2F66827600A53E04 /* PBXContainerItemProxy */;
+		};
+		B05C85562F66827600A53E04 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B05C85392F66827400A53E04 /* FriendFocus */;
+			targetProxy = B05C85552F66827600A53E04 /* PBXContainerItemProxy */;
+		};
+		FFAA000B2F66827600A53E04 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FFAA00062F66827600A53E04 /* FocusMonitor */;
+			targetProxy = FFAA000A2F66827600A53E04 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B05C855C2F66827600A53E04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B05C855D2F66827600A53E04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B05C855F2F66827600A53E04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FriendFocus/FriendFocus.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"FriendFocus/Preview Content\"";
+				DEVELOPMENT_TEAM = 8TK372XC8L;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = LH.FriendFocus;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B05C85602F66827600A53E04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FriendFocus/FriendFocus.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"FriendFocus/Preview Content\"";
+				DEVELOPMENT_TEAM = 8TK372XC8L;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = LH.FriendFocus;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B05C85622F66827600A53E04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = LH.FriendFocusTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FriendFocus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FriendFocus";
+			};
+			name = Debug;
+		};
+		B05C85632F66827600A53E04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = LH.FriendFocusTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FriendFocus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FriendFocus";
+			};
+			name = Release;
+		};
+		B05C85652F66827600A53E04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = LH.FriendFocusUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FriendFocus;
+			};
+			name = Debug;
+		};
+		B05C85662F66827600A53E04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = LH.FriendFocusUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FriendFocus;
+			};
+			name = Release;
+		};
+		FFAA00072F66827600A53E04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = FocusMonitor/FocusMonitor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8TK372XC8L;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FocusMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = LH.FriendFocus.FocusMonitor;
+				PRODUCT_NAME = FocusMonitor;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FFAA00082F66827600A53E04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = FocusMonitor/FocusMonitor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8TK372XC8L;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FocusMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = LH.FriendFocus.FocusMonitor;
+				PRODUCT_NAME = FocusMonitor;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B05C85352F66827400A53E04 /* Build configuration list for PBXProject "FriendFocus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B05C855C2F66827600A53E04 /* Debug */,
+				B05C855D2F66827600A53E04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B05C855E2F66827600A53E04 /* Build configuration list for PBXNativeTarget "FriendFocus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B05C855F2F66827600A53E04 /* Debug */,
+				B05C85602F66827600A53E04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B05C85612F66827600A53E04 /* Build configuration list for PBXNativeTarget "FriendFocusTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B05C85622F66827600A53E04 /* Debug */,
+				B05C85632F66827600A53E04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B05C85642F66827600A53E04 /* Build configuration list for PBXNativeTarget "FriendFocusUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B05C85652F66827600A53E04 /* Debug */,
+				B05C85662F66827600A53E04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FFAA00092F66827600A53E04 /* Build configuration list for PBXNativeTarget "FocusMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFAA00072F66827600A53E04 /* Debug */,
+				FFAA00082F66827600A53E04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B05C85DD2F66CF9200A53E04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B05C85DF2F66CFD700A53E04 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B05C85DD2F66CF9200A53E04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		B05C85E12F66CFDE00A53E04 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B05C85DD2F66CF9200A53E04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = B05C85322F66827400A53E04 /* Project object */;
+}

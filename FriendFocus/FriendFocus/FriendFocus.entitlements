@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!--
+        FamilyControls entitlement — required for FamilyActivityPicker, application tokens,
+        and ManagedSettingsStore. Must be approved by Apple before submitting to the App Store.
+        Request via: https://developer.apple.com/contact/request/family-controls-distribution
+    -->
+    <key>com.apple.developer.family-controls</key>
+    <true/>
+
+    <!--
+        App Group — shared UserDefaults container between the main app and the
+        FocusMonitor extension so they can exchange session state and the app token set.
+    -->
+    <key>com.apple.security.application-groups</key>
+    <array>
+        <string>group.LH.FriendFocus.shared</string>
+    </array>
+</dict>
+</plist>
