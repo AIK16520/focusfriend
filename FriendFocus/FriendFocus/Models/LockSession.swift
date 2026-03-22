@@ -14,7 +14,8 @@ struct LockSession: Codable, Identifiable {
     var resolvedAt: Date?
 
     enum Status: String, Codable {
-        case pending            // session active, block applied, friend can approve/deny
+        case pending            // locked, friend just informed — no action needed yet
+        case unlockRequested    // owner tapped "Request Unlock" — friend must approve/deny
         case approved           // friend approved → block lifted
         case denied             // friend denied  → block stays (owner has emergency stop)
         case cancelled          // owner force-stopped → block lifted
@@ -23,7 +24,7 @@ struct LockSession: Codable, Identifiable {
         var isResolved: Bool {
             switch self {
             case .approved, .denied, .cancelled, .complete: return true
-            case .pending: return false
+            case .pending, .unlockRequested: return false
             }
         }
     }

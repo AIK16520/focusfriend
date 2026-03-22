@@ -11,6 +11,18 @@
 import Foundation
 import FirebaseFirestore
 
+enum AppError: LocalizedError {
+    case alreadyFriends
+    case requestAlreadySent
+
+    var errorDescription: String? {
+        switch self {
+        case .alreadyFriends: return "You're already friends."
+        case .requestAlreadySent: return "Friend request already sent."
+        }
+    }
+}
+
 final class FirestoreService {
     static let shared = FirestoreService()
     private let db = Firestore.firestore()
@@ -35,8 +47,71 @@ final class FirestoreService {
         return try? snap.documents.first?.data(as: AppUser.self)
     }
 
-    /// Mutually adds both users as friends in one atomic batch.
-    func addFriend(myUID: String, theirUID: String) async throws {
+    // MARK: – Friend Requests
+
+    func sendFriendRequest(from fromUID: String, fromName: String, to toUID: String, toName: String) async throws {
+        // Check not already friends
+        let myDoc = try await db.collection("users").document(fromUID).getDocument()
+        if let friends = myDoc.data()?["friends"] as? [String], friends.contains(toUID) {
+            throw AppError.alreadyFriends
+        }
+        // Check no pending request already exists in either direction
+        let existing = try await db.collection("friendRequests")
+            .whereField("fromUID", isEqualTo: fromUID)
+            .whereField("toUID", isEqualTo: toUID)
+            .whereField("status", isEqualTo: FriendRequest.Status.pending.rawValue)
+            .getDocuments()
+        if !existing.documents.isEmpty { throw AppError.requestAlreadySent }
+
+        let request = FriendRequest(
+            fromUID: fromUID,
+            fromName: fromName,
+            toUID: toUID,
+            toName: toName,
+            status: .pending,
+            createdAt: Date()
+        )
+        try db.collection("friendRequests").document().setData(from: request)
+    }
+
+    func acceptFriendRequest(_ requestID: String, fromUID: String, toUID: String) async throws {
+        let batch = db.batch()
+        // Mark request accepted
+        batch.updateData(
+            ["status": FriendRequest.Status.accepted.rawValue],
+            forDocument: db.collection("friendRequests").document(requestID)
+        )
+        // Mutually add as friends
+        batch.updateData(
+            ["friends": FieldValue.arrayUnion([toUID])],
+            forDocument: db.collection("users").document(fromUID)
+        )
+        batch.updateData(
+            ["friends": FieldValue.arrayUnion([fromUID])],
+            forDocument: db.collection("users").document(toUID)
+        )
+        try await batch.commit()
+    }
+
+    func declineFriendRequest(_ requestID: String) async throws {
+        try await db.collection("friendRequests").document(requestID).updateData([
+            "status": FriendRequest.Status.declined.rawValue
+        ])
+    }
+
+    /// Listens for pending incoming requests for a given user.
+    func listenForFriendRequests(uid: String, onChange: @escaping ([FriendRequest]) -> Void) -> ListenerRegistration {
+        db.collection("friendRequests")
+            .whereField("toUID", isEqualTo: uid)
+            .whereField("status", isEqualTo: FriendRequest.Status.pending.rawValue)
+            .addSnapshotListener { snap, _ in
+                let requests = snap?.documents.compactMap { try? $0.data(as: FriendRequest.self) } ?? []
+                onChange(requests)
+            }
+    }
+
+    /// Mutually adds both users as friends in one atomic batch (used internally by acceptFriendRequest).
+    private func addFriendDirect(myUID: String, theirUID: String) async throws {
         let batch = db.batch()
         batch.updateData(
             ["friends": FieldValue.arrayUnion([theirUID])],
@@ -70,6 +145,13 @@ final class FirestoreService {
         let ref = db.collection("lockSessions").document()   // auto-ID
         try ref.setData(from: session)
         return ref.documentID
+    }
+
+    func requestUnlock(_ id: String) async throws {
+        try await db.collection("lockSessions").document(id).updateData([
+            "status": LockSession.Status.unlockRequested.rawValue,
+            "updatedAt": Timestamp(date: Date())
+        ])
     }
 
     func approveSession(_ id: String) async throws {
@@ -110,8 +192,8 @@ final class FirestoreService {
         }
     }
 
-    /// Friend listens for sessions where they are the designated friend.
-    /// Filters client-side for .pending status to avoid needing a composite Firestore index.
+    /// Friend listens for active sessions where they are the designated friend.
+    /// Filters client-side to avoid composite index requirement.
     func listenForIncomingSessions(
         friendUID: String,
         onChange: @escaping ([LockSession]) -> Void
@@ -120,7 +202,7 @@ final class FirestoreService {
             .whereField("friendUID", isEqualTo: friendUID)
             .addSnapshotListener { snap, _ in
                 let all = snap?.documents.compactMap { try? $0.data(as: LockSession.self) } ?? []
-                onChange(all.filter { $0.status == .pending })
+                onChange(all.filter { $0.status == .pending || $0.status == .unlockRequested })
             }
     }
 }

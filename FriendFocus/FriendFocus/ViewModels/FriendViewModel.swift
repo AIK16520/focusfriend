@@ -1,10 +1,28 @@
 import Foundation
+import FirebaseFirestore
 
 @MainActor
 final class FriendViewModel: ObservableObject {
     @Published var friends: [AppUser] = []
+    @Published var incomingRequests: [FriendRequest] = []
     @Published var isLoading = false
     @Published var error: String?
+
+    private var requestListener: ListenerRegistration?
+
+    func startRequestListener(uid: String) {
+        requestListener?.remove()
+        requestListener = FirestoreService.shared.listenForFriendRequests(uid: uid) { [weak self] requests in
+            Task { @MainActor [weak self] in
+                self?.incomingRequests = requests
+            }
+        }
+    }
+
+    func stopRequestListener() {
+        requestListener?.remove()
+        requestListener = nil
+    }
 
     func fetchFriends(uids: [String]) async {
         guard !uids.isEmpty else { friends = []; return }
@@ -17,8 +35,8 @@ final class FriendViewModel: ObservableObject {
         }
     }
 
-    /// Returns true on success, false + sets error on failure.
-    func addFriend(myUID: String, code: String) async -> Bool {
+    /// Sends a friend request using their invite code. Returns true on success.
+    func sendRequest(myUID: String, myName: String, code: String) async -> Bool {
         guard code.count == 6 else { error = "Code must be 6 characters."; return false }
         isLoading = true
         defer { isLoading = false }
@@ -32,12 +50,35 @@ final class FriendViewModel: ObservableObject {
                 error = "That's your own invite code."
                 return false
             }
-            try await FirestoreService.shared.addFriend(myUID: myUID, theirUID: found.id ?? "")
-            friends.append(found)
+            try await FirestoreService.shared.sendFriendRequest(
+                from: myUID, fromName: myName,
+                to: found.id ?? "", toName: found.displayName
+            )
             return true
         } catch {
             self.error = error.localizedDescription
             return false
+        }
+    }
+
+    func accept(request: FriendRequest) async {
+        guard let id = request.id else { return }
+        do {
+            try await FirestoreService.shared.acceptFriendRequest(id, fromUID: request.fromUID, toUID: request.toUID)
+            incomingRequests.removeAll { $0.id == id }
+            // friends list refresh is handled by AuthService's Firestore listener + onReceive in MainTabView
+        } catch {
+            self.error = error.localizedDescription
+        }
+    }
+
+    func decline(request: FriendRequest) async {
+        guard let id = request.id else { return }
+        do {
+            try await FirestoreService.shared.declineFriendRequest(id)
+            incomingRequests.removeAll { $0.id == id }
+        } catch {
+            self.error = error.localizedDescription
         }
     }
 }

@@ -10,8 +10,20 @@ struct ActiveSessionView: View {
 
             Spacer()
 
-            // Emergency stop — always visible so the owner is never truly stuck in Phase 2 mock mode
-            if session.status == .pending || session.status == .denied {
+            // Request unlock — only shown while locked and not yet requested
+            if session.status == .pending {
+                Button {
+                    Task { await sessionVM.requestUnlock() }
+                } label: {
+                    Label("Request Unlock", systemImage: "lock.open")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+            }
+
+            // Emergency stop
+            if session.status == .pending || session.status == .unlockRequested || session.status == .denied {
                 Button("Force Stop Session", role: .destructive) {
                     Task { await sessionVM.cancelSession() }
                 }
@@ -36,13 +48,20 @@ struct ActiveSessionView: View {
             case .pending:
                 Image(systemName: "lock.fill")
                     .font(.system(size: 56)).foregroundStyle(.orange)
-                Text("Waiting for \(session.friendName)…")
+                Text("You're locked in 🔒")
                     .font(.title3.bold())
-                Text("They'll get notified and can approve your unlock.")
+                Text("\(session.friendName) has been notified. Tap \"Request Unlock\" when you want out.")
                     .multilineTextAlignment(.center).foregroundStyle(.secondary)
-                // Elapsed time
                 Label(session.createdAt, systemImage: "clock")
                     .font(.footnote).foregroundStyle(.secondary)
+
+            case .unlockRequested:
+                Image(systemName: "hourglass")
+                    .font(.system(size: 56)).foregroundStyle(.orange)
+                Text("Waiting on \(session.friendName)…")
+                    .font(.title3.bold())
+                Text("You've asked to unlock. They need to approve.")
+                    .multilineTextAlignment(.center).foregroundStyle(.secondary)
 
             case .approved, .complete:
                 Image(systemName: "lock.open.fill")
@@ -73,7 +92,6 @@ struct ActiveSessionView: View {
     }
 }
 
-// Make Date directly usable in Label
 private extension Label where Title == Text, Icon == Image {
     init(_ date: Date, systemImage: String) {
         self.init(date.formatted(.relative(presentation: .named)), systemImage: systemImage)

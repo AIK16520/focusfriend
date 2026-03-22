@@ -44,15 +44,27 @@ final class SessionViewModel: ObservableObject {
                 guard let self else { return }
                 let existing = Set(self.incomingRequests.compactMap(\.id))
                 self.incomingRequests = sessions
-                // Fire a local notification for each newly arrived request
+                // Notify for newly arrived sessions
                 for session in sessions where !existing.contains(session.id ?? "") {
-                    NotificationService.shared.fire(
-                        title: "\(session.ownerName) wants to unlock",
-                        body: "Tap to approve or deny their unlock request.",
-                        identifier: "incoming.\(session.id ?? UUID().uuidString)"
-                    )
+                    switch session.status {
+                    case .pending:
+                        NotificationService.shared.fire(
+                            title: "\(session.ownerName) is now locked 🔒",
+                            body: "They'll notify you when they want to unlock.",
+                            identifier: "incoming.locked.\(session.id ?? UUID().uuidString)"
+                        )
+                    case .unlockRequested:
+                        NotificationService.shared.fire(
+                            title: "\(session.ownerName) wants to unlock 🔓",
+                            body: "Tap to approve or deny their unlock request.",
+                            identifier: "incoming.unlock.\(session.id ?? UUID().uuidString)"
+                        )
+                    default:
+                        break
+                    }
                 }
-                if !sessions.isEmpty {
+                // Only show approve/deny sheet when someone is actively requesting unlock
+                if sessions.contains(where: { $0.status == .unlockRequested }) {
                     self.showingIncomingRequests = true
                 }
             }
@@ -96,6 +108,14 @@ final class SessionViewModel: ObservableObject {
         } catch {
             self.error = error.localizedDescription
         }
+    }
+
+    // MARK: – Owner: request unlock from friend
+
+    func requestUnlock() async {
+        guard let sessionID = SharedStore.activeSessionID else { return }
+        do { try await FirestoreService.shared.requestUnlock(sessionID) }
+        catch { self.error = error.localizedDescription }
     }
 
     // MARK: – Owner: emergency stop
@@ -158,7 +178,7 @@ final class SessionViewModel: ObservableObject {
                 case .cancelled:
                     MockBlockingService.shared.liftBlock(by: "you")
 
-                case .pending, .complete:
+                case .pending, .unlockRequested, .complete:
                     break
                 }
             }

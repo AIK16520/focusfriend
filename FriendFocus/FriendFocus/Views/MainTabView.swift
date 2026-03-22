@@ -11,6 +11,7 @@ struct MainTabView: View {
                 .tabItem { Label("Home", systemImage: "house") }
             FriendsView()
                 .tabItem { Label("Friends", systemImage: "person.2") }
+                .badge(friendVM.incomingRequests.isEmpty ? 0 : friendVM.incomingRequests.count)
             ProfileView()
                 .tabItem { Label("Profile", systemImage: "person.circle") }
         }
@@ -23,12 +24,13 @@ struct MainTabView: View {
         }
         .task {
             guard let uid = auth.uid else { return }
-            // Start friend-side listener immediately so we catch incoming requests
-            // even when the user is on a different tab.
             sessionVM.startFriendListener(uid: uid)
-            // Hydrate the friends list
+            friendVM.startRequestListener(uid: uid)
             let friendUIDs = auth.currentUser?.friends ?? []
             await friendVM.fetchFriends(uids: friendUIDs)
+        }
+        .onReceive(auth.$currentUser) { user in
+            Task { await friendVM.fetchFriends(uids: user?.friends ?? []) }
         }
     }
 }

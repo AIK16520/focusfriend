@@ -18,18 +18,34 @@ final class AuthService: ObservableObject {
     var uid: String? { Auth.auth().currentUser?.uid }
 
     private var authListener: AuthStateDidChangeListenerHandle?
+    private var userDocListener: ListenerRegistration?
 
     private init() {
         authListener = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             Task { @MainActor [weak self] in
-                self?.isSignedIn = user != nil
+                guard let self else { return }
+                self.isSignedIn = user != nil
                 if let uid = user?.uid {
-                    self?.currentUser = try? await FirestoreService.shared.getUser(uid: uid)
+                    self.currentUser = try? await FirestoreService.shared.getUser(uid: uid)
+                    self.startUserDocListener(uid: uid)
                 } else {
-                    self?.currentUser = nil
+                    self.currentUser = nil
+                    self.userDocListener?.remove()
+                    self.userDocListener = nil
                 }
             }
         }
+    }
+
+    private func startUserDocListener(uid: String) {
+        userDocListener?.remove()
+        userDocListener = Firestore.firestore()
+            .collection("users").document(uid)
+            .addSnapshotListener { [weak self] snap, _ in
+                Task { @MainActor [weak self] in
+                    self?.currentUser = try? snap?.data(as: AppUser.self)
+                }
+            }
     }
 
     func signIn(displayName: String) async throws {

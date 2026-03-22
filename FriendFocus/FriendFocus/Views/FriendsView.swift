@@ -7,19 +7,30 @@ struct FriendsView: View {
 
     var body: some View {
         NavigationStack {
-            Group {
-                if friendVM.isLoading && friendVM.friends.isEmpty {
-                    ProgressView()
-                } else if friendVM.friends.isEmpty {
-                    ContentUnavailableView(
-                        "No friends yet",
-                        systemImage: "person.2",
-                        description: Text("Add a friend using their 6-letter invite code.")
-                    )
-                } else {
-                    List(friendVM.friends) { friend in
-                        Label(friend.displayName, systemImage: "person.fill")
+            List {
+                // Incoming requests section
+                if !friendVM.incomingRequests.isEmpty {
+                    Section("Friend Requests") {
+                        ForEach(friendVM.incomingRequests) { request in
+                            FriendRequestRow(request: request)
+                                .environmentObject(friendVM)
+                        }
                     }
+                }
+
+                // Friends section
+                Section {
+                    if friendVM.friends.isEmpty {
+                        Text("No friends yet. Send a request using their invite code.")
+                            .foregroundStyle(.secondary)
+                            .font(.footnote)
+                    } else {
+                        ForEach(friendVM.friends) { friend in
+                            Label(friend.displayName, systemImage: "person.fill")
+                        }
+                    }
+                } header: {
+                    Text("Friends")
                 }
             }
             .navigationTitle("Friends")
@@ -37,6 +48,41 @@ struct FriendsView: View {
                     .environmentObject(auth)
                     .environmentObject(friendVM)
             }
+            .task {
+                if let uid = auth.uid {
+                    friendVM.startRequestListener(uid: uid)
+                }
+            }
+        }
+    }
+}
+
+private struct FriendRequestRow: View {
+    let request: FriendRequest
+    @EnvironmentObject var friendVM: FriendViewModel
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(request.fromName)
+                    .font(.body)
+                Text("Wants to be your friend")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            Button("Accept") {
+                Task { await friendVM.accept(request: request) }
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.small)
+
+            Button("Decline") {
+                Task { await friendVM.decline(request: request) }
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.small)
+            .tint(.red)
         }
     }
 }
@@ -69,17 +115,20 @@ private struct AddFriendSheet: View {
                 }
 
                 if showSuccess {
-                    Label("Friend added!", systemImage: "checkmark.circle.fill")
+                    Label("Request sent! Waiting for them to accept.", systemImage: "checkmark.circle.fill")
                         .foregroundStyle(.green)
+                        .multilineTextAlignment(.center)
+                        .font(.footnote)
                 }
 
-                Button("Add Friend") {
+                Button("Send Request") {
                     Task {
-                        guard let uid = auth.uid else { return }
-                        let ok = await friendVM.addFriend(myUID: uid, code: code)
+                        guard let uid = auth.uid,
+                              let name = auth.currentUser?.displayName else { return }
+                        let ok = await friendVM.sendRequest(myUID: uid, myName: name, code: code)
                         if ok {
                             showSuccess = true
-                            try? await Task.sleep(for: .seconds(1))
+                            try? await Task.sleep(for: .seconds(1.5))
                             showAddSheet = false
                         }
                     }
