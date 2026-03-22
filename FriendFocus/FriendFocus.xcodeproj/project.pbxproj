@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B05C85E02F66CFD700A53E04 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B05C85DF2F66CFD700A53E04 /* FirebaseAuth */; };
 		B05C85E22F66CFDE00A53E04 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B05C85E12F66CFDE00A53E04 /* FirebaseFirestore */; };
-		FFAA000D2F66827600A53E04 /* FocusMonitor.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FFAA00012F66827600A53E04 /* FocusMonitor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,13 +25,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = B05C85392F66827400A53E04;
 			remoteInfo = FriendFocus;
-		};
-		FFAA000A2F66827600A53E04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B05C85322F66827400A53E04 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FFAA00062F66827600A53E04;
-			remoteInfo = FocusMonitor;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -56,16 +48,6 @@
 		FFAA00012F66827600A53E04 /* FocusMonitor.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FocusMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		FFAA000E2F66827600A53E04 /* Exceptions for "FocusMonitor" folder in "FocusMonitor" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = FFAA00062F66827600A53E04 /* FocusMonitor */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B05C853C2F66827400A53E04 /* FriendFocus */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -84,9 +66,6 @@
 		};
 		FFAA00022F66827600A53E04 /* FocusMonitor */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				FFAA000E2F66827600A53E04 /* Exceptions for "FocusMonitor" folder in "FocusMonitor" target */,
-			);
 			path = FocusMonitor;
 			sourceTree = "<group>";
 		};
@@ -157,27 +136,6 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		FFAA000F2F66827600A53E04 /* Strip extension from Simulator */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Strip extension from Simulator";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# DeviceActivity extensions cannot be installed on the iOS Simulator.\n# Remove the extension from the app bundle so Simulator builds install cleanly.\nif [ \"$PLATFORM_NAME\" == \"iphonesimulator\" ]; then\n    rm -rf \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/PlugIns/FocusMonitor.appex\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		B05C85392F66827400A53E04 /* FriendFocus */ = {
@@ -396,11 +354,6 @@
 			isa = PBXTargetDependency;
 			target = B05C85392F66827400A53E04 /* FriendFocus */;
 			targetProxy = B05C85552F66827600A53E04 /* PBXContainerItemProxy */;
-		};
-		FFAA000B2F66827600A53E04 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FFAA00062F66827600A53E04 /* FocusMonitor */;
-			targetProxy = FFAA000A2F66827600A53E04 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
