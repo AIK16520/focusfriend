@@ -71,6 +71,13 @@ final class AuthService: ObservableObject {
         isSignedIn = false
     }
 
+    func updateFCMToken(_ token: String) async {
+        guard let uid = self.uid else { return }
+        try? await FirestoreService.shared.updateFCMToken(token, forUID: uid)
+        // Also update local copy
+        currentUser?.fcmToken = token
+    }
+
     // Omit confusable chars (O, 0, I, 1)
     private static func generateInviteCode() -> String {
         let chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"

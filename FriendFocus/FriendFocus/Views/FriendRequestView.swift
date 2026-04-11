@@ -1,22 +1,20 @@
 import SwiftUI
 
-// Presented as a sheet on the friend's device when an unlock is requested.
 struct FriendRequestView: View {
     @EnvironmentObject var sessionVM: SessionViewModel
+    @EnvironmentObject var auth: AuthService
 
     var body: some View {
         NavigationStack {
             Group {
                 if sessionVM.incomingRequests.isEmpty {
-                    ContentUnavailableView(
-                        "No Pending Requests",
-                        systemImage: "tray",
-                        description: Text("All requests have been resolved.")
-                    )
+                    ContentUnavailableView("No Pending Requests", systemImage: "tray",
+                        description: Text("All requests have been resolved."))
                 } else {
                     List(sessionVM.incomingRequests) { session in
                         RequestCard(session: session)
                             .environmentObject(sessionVM)
+                            .environmentObject(auth)
                     }
                     .listStyle(.insetGrouped)
                 }
@@ -35,6 +33,7 @@ struct FriendRequestView: View {
 private struct RequestCard: View {
     let session: LockSession
     @EnvironmentObject var sessionVM: SessionViewModel
+    @EnvironmentObject var auth: AuthService
     @State private var isActing = false
 
     var body: some View {
@@ -42,40 +41,37 @@ private struct RequestCard: View {
             HStack {
                 Image(systemName: session.status == .unlockRequested ? "lock.open" : "lock.fill")
                     .foregroundStyle(session.status == .unlockRequested ? .blue : .orange)
-                Text(headerText)
-                    .font(.headline)
+                Text(headerText).font(.headline)
             }
 
             Text("\(session.appTokensCount) app\(session.appTokensCount == 1 ? "" : "s") blocked")
-                .foregroundStyle(.secondary)
-                .font(.subheadline)
+                .foregroundStyle(.secondary).font(.subheadline)
 
             Text("Locked \(session.createdAt, format: .relative(presentation: .named))")
                 .font(.caption).foregroundStyle(.secondary)
 
+            if let expiresAt = session.expiresAt {
+                Text("Expires \(expiresAt, format: .relative(presentation: .named))")
+                    .font(.caption).foregroundStyle(.orange)
+            }
+
             if session.status == .unlockRequested {
                 HStack(spacing: 12) {
                     Button("Unlock") {
-                        act { await sessionVM.approve(session: session) }
+                        act { await sessionVM.approve(session: session, byUID: auth.uid ?? "", byName: auth.currentUser?.displayName ?? "") }
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.green)
-                    .disabled(isActing)
+                    .buttonStyle(.borderedProminent).tint(.green).disabled(isActing)
 
                     Button("Stay Locked") {
                         act { await sessionVM.deny(session: session) }
                     }
-                    .buttonStyle(.bordered)
-                    .tint(.red)
-                    .disabled(isActing)
+                    .buttonStyle(.bordered).tint(.red).disabled(isActing)
 
                     if isActing { ProgressView() }
                 }
             } else {
                 Text("Waiting — they'll notify you when they want to unlock.")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .italic()
+                    .font(.caption).foregroundStyle(.secondary).italic()
             }
         }
         .padding(.vertical, 6)
@@ -91,9 +87,6 @@ private struct RequestCard: View {
 
     private func act(action: @escaping () async -> Void) {
         isActing = true
-        Task {
-            await action()
-            isActing = false
-        }
+        Task { await action(); isActing = false }
     }
 }

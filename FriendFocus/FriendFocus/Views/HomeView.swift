@@ -4,8 +4,17 @@ struct HomeView: View {
     @EnvironmentObject var auth: AuthService
     @EnvironmentObject var sessionVM: SessionViewModel
     @EnvironmentObject var friendVM: FriendViewModel
-    @State private var selectedFriend: AppUser?
+    @State private var selectedFriendIDs: Set<String> = []
     @State private var showFriendPicker = false
+    @State private var maxDuration: TimeInterval? = nil
+
+    private let durationOptions: [(label: String, value: TimeInterval?)] = [
+        ("No limit", nil),
+        ("30 min", 1800),
+        ("1 hour", 3600),
+        ("2 hours", 7200),
+        ("4 hours", 14400)
+    ]
 
     var body: some View {
         NavigationStack {
@@ -20,13 +29,15 @@ struct HomeView: View {
         }
     }
 
-    // MARK: – New session setup
+    private var selectedFriends: [AppUser] {
+        friendVM.friends.filter { selectedFriendIDs.contains($0.id ?? "") }
+    }
 
     private var newSessionView: some View {
         VStack(spacing: 20) {
-            // Friend picker card
+            // Friend picker
             VStack(alignment: .leading, spacing: 10) {
-                Label("Lock guardian", systemImage: "person.fill.checkmark")
+                Label("Lock guardians", systemImage: "person.fill.checkmark")
                     .font(.headline)
 
                 if friendVM.friends.isEmpty {
@@ -34,12 +45,11 @@ struct HomeView: View {
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 } else {
-                    Button {
-                        showFriendPicker = true
-                    } label: {
+                    Button { showFriendPicker = true } label: {
                         HStack {
-                            Text(selectedFriend?.displayName ?? "Choose a friend…")
-                                .foregroundStyle(selectedFriend == nil ? .secondary : .primary)
+                            Text(selectedFriends.isEmpty ? "Choose friends…" : selectedFriends.map(\.displayName).joined(separator: ", "))
+                                .foregroundStyle(selectedFriends.isEmpty ? .secondary : .primary)
+                                .lineLimit(1)
                             Spacer()
                             Image(systemName: "chevron.up.chevron.down")
                                 .foregroundStyle(.secondary)
@@ -53,6 +63,21 @@ struct HomeView: View {
             .padding()
             .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
 
+            // Timer picker
+            VStack(alignment: .leading, spacing: 10) {
+                Label("Max lock duration", systemImage: "timer")
+                    .font(.headline)
+                Picker("Duration", selection: $maxDuration) {
+                    ForEach(durationOptions, id: \.label) { option in
+                        Text(option.label).tag(option.value)
+                    }
+                }
+                .pickerStyle(.segmented)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
+            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+
             if let error = sessionVM.error {
                 Text(error).foregroundStyle(.red).font(.footnote)
             }
@@ -60,24 +85,54 @@ struct HomeView: View {
             Spacer()
 
             Button {
-                guard let owner = auth.currentUser, let friend = selectedFriend else { return }
-                Task { await sessionVM.startSession(owner: owner, friend: friend) }
+                guard let owner = auth.currentUser, !selectedFriends.isEmpty else { return }
+                Task { await sessionVM.startSession(owner: owner, friends: selectedFriends, maxDurationSeconds: maxDuration) }
             } label: {
                 if sessionVM.isStartingSession {
                     ProgressView()
                 } else {
-                    Text("Start Lock Session")
-                        .frame(maxWidth: .infinity)
+                    Text("Start Lock Session").frame(maxWidth: .infinity)
                 }
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
-            .disabled(selectedFriend == nil || sessionVM.isStartingSession)
+            .disabled(selectedFriends.isEmpty || sessionVM.isStartingSession)
         }
         .padding()
-        .confirmationDialog("Choose a friend", isPresented: $showFriendPicker, titleVisibility: .visible) {
-            ForEach(friendVM.friends) { friend in
-                Button(friend.displayName) { selectedFriend = friend }
+        .sheet(isPresented: $showFriendPicker) {
+            FriendPickerSheet(selectedIDs: $selectedFriendIDs, friends: friendVM.friends)
+        }
+    }
+}
+
+private struct FriendPickerSheet: View {
+    @Binding var selectedIDs: Set<String>
+    let friends: [AppUser]
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            List(friends) { friend in
+                let uid = friend.id ?? ""
+                HStack {
+                    Text(friend.displayName)
+                    Spacer()
+                    if selectedIDs.contains(uid) {
+                        Image(systemName: "checkmark").foregroundStyle(.blue)
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    if selectedIDs.contains(uid) { selectedIDs.remove(uid) }
+                    else { selectedIDs.insert(uid) }
+                }
+            }
+            .navigationTitle("Choose Guardians")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }
+                }
             }
         }
     }

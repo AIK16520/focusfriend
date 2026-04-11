@@ -44,4 +44,15 @@ enum SharedStore {
         get { defaults.string(forKey: "activeSessionID") }
         set { defaults.set(newValue, forKey: "activeSessionID"); defaults.synchronize() }
     }
+
+    static var sessionExpiresAt: Date? {
+        get {
+            let t = defaults.double(forKey: "sessionExpiresAt")
+            return t > 0 ? Date(timeIntervalSince1970: t) : nil
+        }
+        set {
+            defaults.set(newValue.map { $0.timeIntervalSince1970 } ?? 0, forKey: "sessionExpiresAt")
+            defaults.synchronize()
+        }
+    }
 }

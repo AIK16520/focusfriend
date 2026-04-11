@@ -1,4 +1,5 @@
 FriendFocus/FriendFocus/GoogleService-Info.plist
 Claude.md
 .claude
-.claude/projects
+.claude/projectsfunctions/node_modules/
+functions/lib/

@@ -5,25 +5,31 @@ struct LockSession: Codable, Identifiable {
     @DocumentID var id: String?
     var ownerUID: String
     var ownerName: String
-    var friendUID: String
-    var friendName: String
+    var friendUIDs: [String]
+    var friendNames: [String]
     var status: Status
-    var appTokensCount: Int     // count only — actual tokens live in SharedStore (App Group)
+    var appTokensCount: Int
     var createdAt: Date
     var updatedAt: Date
     var resolvedAt: Date?
+    var expiresAt: Date?
+    var approvedByUID: String?
+    var approvedByName: String?
+
+    var primaryFriendName: String { friendNames.first ?? "your friend" }
 
     enum Status: String, Codable {
-        case pending            // locked, friend just informed — no action needed yet
-        case unlockRequested    // owner tapped "Request Unlock" — friend must approve/deny
-        case approved           // friend approved → block lifted
-        case denied             // friend denied  → block stays (owner has emergency stop)
-        case cancelled          // owner force-stopped → block lifted
-        case complete           // terminal, archived
+        case pending
+        case unlockRequested
+        case approved
+        case denied
+        case cancelled
+        case timerExpired
+        case complete
 
         var isResolved: Bool {
             switch self {
-            case .approved, .denied, .cancelled, .complete: return true
+            case .approved, .denied, .cancelled, .timerExpired, .complete: return true
             case .pending, .unlockRequested: return false
             }
         }

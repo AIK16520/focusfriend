@@ -17,10 +17,10 @@ struct MainTabView: View {
         }
         .environmentObject(sessionVM)
         .environmentObject(friendVM)
-        // Friend-side incoming request sheet — shown whenever a pending session arrives
         .sheet(isPresented: $sessionVM.showingIncomingRequests) {
             FriendRequestView()
                 .environmentObject(sessionVM)
+                .environmentObject(auth)
         }
         .task {
             guard let uid = auth.uid else { return }

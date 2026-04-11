@@ -10,7 +10,6 @@ struct ActiveSessionView: View {
 
             Spacer()
 
-            // Request unlock — only shown while locked and not yet requested
             if session.status == .pending {
                 Button {
                     Task { await sessionVM.requestUnlock() }
@@ -22,8 +21,7 @@ struct ActiveSessionView: View {
                 .controlSize(.large)
             }
 
-            // Emergency stop
-            if session.status == .pending || session.status == .unlockRequested || session.status == .denied {
+            if !session.status.isResolved {
                 Button("Force Stop Session", role: .destructive) {
                     Task { await sessionVM.cancelSession() }
                 }
@@ -46,44 +44,41 @@ struct ActiveSessionView: View {
         VStack(spacing: 16) {
             switch session.status {
             case .pending:
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 56)).foregroundStyle(.orange)
-                Text("You're locked in 🔒")
-                    .font(.title3.bold())
-                Text("\(session.friendName) has been notified. Tap \"Request Unlock\" when you want out.")
+                Image(systemName: "lock.fill").font(.system(size: 56)).foregroundStyle(.orange)
+                Text("You're locked in 🔒").font(.title3.bold())
+                Text("Your guardian\(session.friendNames.count > 1 ? "s" : "") (\(session.friendNames.joined(separator: ", "))) ha\(session.friendNames.count > 1 ? "ve" : "s") been notified.")
                     .multilineTextAlignment(.center).foregroundStyle(.secondary)
-                Label(session.createdAt, systemImage: "clock")
-                    .font(.footnote).foregroundStyle(.secondary)
+                if let expiresAt = session.expiresAt {
+                    Label("Expires \(expiresAt, format: .relative(presentation: .named))", systemImage: "timer")
+                        .font(.footnote).foregroundStyle(.orange)
+                }
+                Label(session.createdAt, systemImage: "clock").font(.footnote).foregroundStyle(.secondary)
 
             case .unlockRequested:
-                Image(systemName: "hourglass")
-                    .font(.system(size: 56)).foregroundStyle(.orange)
-                Text("Waiting on \(session.friendName)…")
-                    .font(.title3.bold())
+                Image(systemName: "hourglass").font(.system(size: 56)).foregroundStyle(.orange)
+                Text("Waiting on your guardian\(session.friendNames.count > 1 ? "s" : "")…").font(.title3.bold())
                 Text("You've asked to unlock. They need to approve.")
                     .multilineTextAlignment(.center).foregroundStyle(.secondary)
 
             case .approved, .complete:
-                Image(systemName: "lock.open.fill")
-                    .font(.system(size: 56)).foregroundStyle(.green)
-                Text("Unlocked by \(session.friendName)")
-                    .font(.title3.bold())
-                Text("Your session has ended.")
-                    .foregroundStyle(.secondary)
+                Image(systemName: "lock.open.fill").font(.system(size: 56)).foregroundStyle(.green)
+                Text("Unlocked by \(session.approvedByName ?? session.primaryFriendName)").font(.title3.bold())
+                Text("Your session has ended.").foregroundStyle(.secondary)
+
+            case .timerExpired:
+                Image(systemName: "clock.badge.checkmark").font(.system(size: 56)).foregroundStyle(.blue)
+                Text("Lock Expired ⏰").font(.title3.bold())
+                Text("Your maximum lock duration was reached. You're unlocked.").multilineTextAlignment(.center).foregroundStyle(.secondary)
 
             case .denied:
-                Image(systemName: "hand.raised.fill")
-                    .font(.system(size: 56)).foregroundStyle(.red)
-                Text("\(session.friendName) said no.")
-                    .font(.title3.bold())
+                Image(systemName: "hand.raised.fill").font(.system(size: 56)).foregroundStyle(.red)
+                Text("\(session.primaryFriendName) said no.").font(.title3.bold())
                 Text("Stay focused. Use Force Stop if you have a genuine emergency.")
                     .multilineTextAlignment(.center).foregroundStyle(.secondary)
 
             case .cancelled:
-                Image(systemName: "xmark.circle.fill")
-                    .font(.system(size: 56)).foregroundStyle(.secondary)
-                Text("Session cancelled.")
-                    .font(.title3.bold())
+                Image(systemName: "xmark.circle.fill").font(.system(size: 56)).foregroundStyle(.secondary)
+                Text("Session cancelled.").font(.title3.bold())
             }
         }
         .padding()

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B05C85E02F66CFD700A53E04 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B05C85DF2F66CFD700A53E04 /* FirebaseAuth */; };
 		B05C85E22F66CFDE00A53E04 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B05C85E12F66CFDE00A53E04 /* FirebaseFirestore */; };
+		FF1A00012F80000000A53E04 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = FF1A00002F80000000A53E04 /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 			files = (
 				B05C85E02F66CFD700A53E04 /* FirebaseAuth in Frameworks */,
 				B05C85E22F66CFDE00A53E04 /* FirebaseFirestore in Frameworks */,
+				FF1A00012F80000000A53E04 /* FirebaseMessaging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +160,7 @@
 			packageProductDependencies = (
 				B05C85DF2F66CFD700A53E04 /* FirebaseAuth */,
 				B05C85E12F66CFDE00A53E04 /* FirebaseFirestore */,
+				FF1A00002F80000000A53E04 /* FirebaseMessaging */,
 			);
 			productName = FriendFocus;
 			productReference = B05C853A2F66827400A53E04 /* FriendFocus.app */;
@@ -718,6 +721,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B05C85DD2F66CF9200A53E04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		FF1A00002F80000000A53E04 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B05C85DD2F66CF9200A53E04 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

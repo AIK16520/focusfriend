@@ -1,10 +1,6 @@
-// FriendFocusApp.swift
-// Firebase is configured in AppDelegate (required before any Firebase call).
-// UNUserNotificationCenter delegate is also set there so foreground notifications
-// display as banners instead of being silently suppressed.
-
 import SwiftUI
 import Firebase
+import FirebaseMessaging
 
 @main
 struct FriendFocusApp: App {
@@ -19,23 +15,36 @@ struct FriendFocusApp: App {
     }
 }
 
-class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
+
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         FirebaseApp.configure()
         UNUserNotificationCenter.current().delegate = self
+        Messaging.messaging().delegate = self
         Task { await NotificationService.shared.requestPermission() }
+        UIApplication.shared.registerForRemoteNotifications()
         return true
     }
 
-    // Show notification banners even when the app is in the foreground
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
+    }
+
+    // Show banners in foreground
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
         completionHandler([.banner, .sound])
+    }
+
+    // FCM token received / refreshed — save to Firestore
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        guard let token = fcmToken else { return }
+        Task { await AuthService.shared.updateFCMToken(token) }
     }
 }
